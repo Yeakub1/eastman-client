@@ -6,6 +6,7 @@ import {
   FaLinkedin,
   FaPhoneAlt,
   FaMapMarkerAlt,
+  FaEnvelope,
 } from "react-icons/fa";
 import logo from "../../../assets/images/logo/logo.png";
 import footerBg from "../../../assets/images/banner/footer imgae.png";
@@ -73,7 +74,9 @@ const Footer = () => {
               <p>803-33-5644-99</p>
             </li>
             <li href="" className="text-lg flex">
-              <p className="text-slate-500 mr-3">Email:</p>{" "}
+              <p className="text-slate-500 mr-3">
+                <FaEnvelope />
+              </p>{" "}
               <p> music@info.com</p>
             </li>
             <li href="" className="text-3xl flex">

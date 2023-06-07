@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/logo/logo.png";
+import ActiveLink from "../../../utility/ActiveLink";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
@@ -11,7 +12,7 @@ const Navbar = () => {
           <div className="navbar-start ml-0">
             <Link to="/">
               <h2 className="w-4/5">
-                <img src={logo} alt="" />
+                <img draggable='false' src={logo} alt="" />
               </h2>
             </Link>
           </div>
@@ -60,16 +61,16 @@ const Navbar = () => {
         >
           <ul className="items-center justify-center text-lg space-y-8 md:flex md:space-x-6 md:space-y-0">
             <li className="">
-              <Link to="/">Home</Link>
+              <ActiveLink to="/">Home</ActiveLink>
             </li>
             <li className="">
-              <Link to="/Instructors">Instructors</Link>
+              <ActiveLink to="/Instructors">Instructors</ActiveLink>
             </li>
 
             <li>
-              <Link className="mr-3" to="/Classes">
+              <ActiveLink className="mr-3" to="/Classes">
                 Classes
-              </Link>
+              </ActiveLink>
             </li>
           </ul>
         </div>
@@ -81,7 +82,10 @@ const Navbar = () => {
         >
           <ul className="items-center justify-center text-lg space-y-8 md:flex md:space-x-6 md:space-y-0 ">
             <li>
-              <Link to="/register">Register</Link>
+              <ActiveLink to="/signup">Register</ActiveLink>
+            </li>
+            <li>
+              <ActiveLink to="/login">Login</ActiveLink>
             </li>
           </ul>
         </div>
