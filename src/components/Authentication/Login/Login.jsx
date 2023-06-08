@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
-import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const {
@@ -36,11 +36,12 @@ const Login = () => {
         const loggedUser = result.user;
         console.log(loggedUser);
         reset();
-         Swal.fire("YAY!", "Your Login Success!", "success");
+        toast.success("Login Successfully");
          navigate(froms, { replace: true });
       })
       .catch((error) => {
         console.log(error);
+        toast.error("valid email address and password");
       });
   };
 
@@ -48,10 +49,12 @@ const Login = () => {
      googleSignIn()
        .then((result) => {
          console.log(result.user);
+         toast.success("Login Successfully");
          navigate(froms, { replace: true });
        })
        .catch((error) => {
          console.log(error);
+         toast.error(error.message);
        });
    };
 
