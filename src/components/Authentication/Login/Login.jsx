@@ -2,9 +2,10 @@ import React, { useContext, useState } from "react";
 import Lottie from "lottie-react";
 import loginAnimation from "../../../assets/images/authentication/login.json";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const {
@@ -13,12 +14,15 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
-
   
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const froms = location.state?.from?.pathname || "/";
 
   const { signIn, googleSignIn } = useContext(AuthContext);
 
@@ -30,6 +34,9 @@ const Login = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        reset();
+         Swal.fire("YAY!", "Your Login Success!", "success");
+         navigate(froms, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -40,6 +47,7 @@ const Login = () => {
      googleSignIn()
        .then((result) => {
          console.log(result.user);
+         navigate(froms, { replace: true });
        })
        .catch((error) => {
          console.log(error);

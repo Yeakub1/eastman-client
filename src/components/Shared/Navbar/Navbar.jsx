@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/logo/logo.png";
-import ActiveLink from "../../../utility/ActiveLink";
+
 import { AuthContext } from "../../Provider/AuthProvider";
+import ActiveLink from "../../../utility/ActiveLink/ActiveLink";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
@@ -89,18 +90,12 @@ const Navbar = () => {
           }`}
         >
           <ul className="items-center justify-center text-lg space-y-8 md:flex md:space-x-6 md:space-y-0 ">
-            {/* <li>
-              <ActiveLink to="/signup">Register</ActiveLink>
-            </li>
-            <li>
-              <ActiveLink to="/login">Login</ActiveLink>
-            </li> */}
             {user?.email ? (
               <>
                 <li>
-                  <button onClick={handleLogOut}>Log out</button>
+                    <button onClick={handleLogOut}>Log out</button>
                 </li>
-                <Link
+                <ActiveLink
                   to="/user-profile"
                   className="hover-text h-10 w-10 ml-4 cursor-pointer"
                 >
@@ -111,10 +106,10 @@ const Navbar = () => {
                   <span className="tooltip-text" id="left">
                     {user?.displayName}
                   </span>
-                </Link>
+                </ActiveLink>
               </>
             ) : (
-              <Link to="/login">LogIn</Link>
+              <ActiveLink to="/login">LogIn</ActiveLink>
             )}
           </ul>
         </div>
