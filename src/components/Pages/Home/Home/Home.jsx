@@ -1,13 +1,17 @@
 import React from 'react';
 import Banner from '../Banner/Banner';
 import Video from '../Video/Video';
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
     return (
-        <div>
-            <Banner></Banner>
-            <Video></Video>
-        </div>
+      <div>
+        <Helmet>
+          <title>Esatman School | Home</title>
+        </Helmet>
+        <Banner></Banner>
+        <Video></Video>
+      </div>
     );
 };
 
