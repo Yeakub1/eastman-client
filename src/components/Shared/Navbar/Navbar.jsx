@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/logo/logo.png";
 import ActiveLink from "../../../utility/ActiveLink";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
+  
+    const handleLogOut = () => {
+      logOut()
+        .then((result) => {})
+        .catch((error) => console.log(error));
+    };
   return (
     <nav className="w-full bg-white shadow ">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex ">
@@ -12,7 +20,7 @@ const Navbar = () => {
           <div className="navbar-start ml-0">
             <Link to="/">
               <h2 className="w-4/5">
-                <img draggable='false' src={logo} alt="" />
+                <img draggable="false" src={logo} alt="" />
               </h2>
             </Link>
           </div>
@@ -81,12 +89,33 @@ const Navbar = () => {
           }`}
         >
           <ul className="items-center justify-center text-lg space-y-8 md:flex md:space-x-6 md:space-y-0 ">
-            <li>
+            {/* <li>
               <ActiveLink to="/signup">Register</ActiveLink>
             </li>
             <li>
               <ActiveLink to="/login">Login</ActiveLink>
-            </li>
+            </li> */}
+            {user?.email ? (
+              <>
+                <li>
+                  <button onClick={handleLogOut}>Log out</button>
+                </li>
+                <Link
+                  to="/user-profile"
+                  className="hover-text h-10 w-10 ml-4 cursor-pointer"
+                >
+                  <img
+                    className="w-full h-full rounded-full"
+                    src={user?.photoURL}
+                  />
+                  <span className="tooltip-text" id="left">
+                    {user?.displayName}
+                  </span>
+                </Link>
+              </>
+            ) : (
+              <Link to="/login">LogIn</Link>
+            )}
           </ul>
         </div>
       </div>

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import signupAnimation from "../../../assets/images/authentication/signup.json";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Signup = () => {
   const {
@@ -13,20 +14,21 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { createUser } = useContext(AuthContext);
 
+  const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword((prevState) => !prevState);
-  };
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+    const onSubmit = (data) => {
+      createUser(data.email, data.password)
+        .then(result => {
+          const loggedUser = result.user;
+          console.log(loggedUser);
+      })
+      
+    };
   return (
     <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 justify-center items-center mt-5 ">
       <div className="">
@@ -86,8 +88,8 @@ const Signup = () => {
               </label>
               <div className="relative">
                 <input
-                  type={showPassword ? "text" : "passwords"}
-                  {...register("passwords", {
+                  type={showPassword ? "text" : "password"}
+                  {...register("password", {
                     required: true,
                     minLength: 6,
                     maxLength: 20,
@@ -121,46 +123,7 @@ const Signup = () => {
                 <p className="text-red-600">don't have a special character</p>
               )}
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Confirm Password</span>
-              </label>
-              <div className="relative">
-                <input
-                  type={showConfirmPassword ? "text" : "confirmPassword"}
-                  {...register("confirmPassword", {
-                    required: true,
-                    minLength: 6,
-                    maxLength: 20,
-                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
-                  })}
-                  placeholder="Confirm password"
-                  className="border border-gray-300 rounded-md px-4 py-2 mb-2 w-full"
-                />
-                <div
-                  className="absolute top-2 right-2 cursor-pointer"
-                  onClick={toggleConfirmPasswordVisibility}
-                >
-                  {showConfirmPassword ? (
-                    <FaEye className="h-5 w-5 text-gray-500" />
-                  ) : (
-                    <FaEyeSlash className="h-5 w-5 text-gray-500" />
-                  )}
-                </div>
-              </div>
-              {errors.password && (
-                <p className="text-red-800">Password is required</p>
-              )}
-              {errors.password?.type === "minLength" && (
-                <p className="text-red-600">is less than 6 characters</p>
-              )}
-              {errors.password?.type === "maxLength" && (
-                <p className="text-red-600">don't have a capital letter</p>
-              )}
-              {errors.password?.type === "pattern" && (
-                <p className="text-red-600">don't have a special character</p>
-              )}
-            </div>
+
 
             <div className="form-control mt-6">
               <input

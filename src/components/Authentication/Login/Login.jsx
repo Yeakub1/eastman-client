@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Lottie from "lottie-react";
 import loginAnimation from "../../../assets/images/authentication/login.json";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Login = () => {
   const {
@@ -13,12 +14,39 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const onSubmit = (data) => console.log(data);
+  const { signIn, googleSignIn } = useContext(AuthContext);
+
+  const onSubmit = (form) => {
+    const emails = form.email;
+    const passwords = form.password;
+
+    signIn(emails, passwords)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+   const handleGoogleSignIn = () => {
+     googleSignIn()
+       .then((result) => {
+         console.log(result.user);
+       })
+       .catch((error) => {
+         console.log(error);
+       });
+   };
+
+
   return (
     <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 justify-center items-center mt-5 ">
       <div className="">
@@ -92,7 +120,7 @@ const Login = () => {
           </form>
 
           <button
-            // onClick={handleGoogleSignIn}
+            onClick={handleGoogleSignIn}
             className="py-2 mb-5 w-full flex items-center justify-center font-semibold  "
           >
             <img
