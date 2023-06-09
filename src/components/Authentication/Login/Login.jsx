@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
+import { collectUsers } from "../../Hooks/User";
 
 const Login = () => {
   const {
@@ -50,6 +51,7 @@ const Login = () => {
        .then((result) => {
          console.log(result.user);
          toast.success("Login Successfully");
+         collectUsers(result.user);
          navigate(froms, { replace: true });
        })
        .catch((error) => {
@@ -68,7 +70,7 @@ const Login = () => {
         <div className="">
           <Lottie className="" animationData={loginAnimation} loop={true} />;
         </div>
-        <div className="">
+        <div className="order-first md:order-last">
           <div className="card mx-auto flex-shrink-0  max-w-sm shadow-2xl bg-base-100">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">

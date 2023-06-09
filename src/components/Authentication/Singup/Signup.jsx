@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import signupAnimation from "../../../assets/images/authentication/signup.json";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-hot-toast";
+import { collectUsers } from "../../Hooks/User";
 
 const Signup = () => {
   const {
@@ -15,21 +17,36 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUser } = useContext(AuthContext);
+   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-    const onSubmit = (data) => {
+  const onSubmit = (data) => {
+    const { name, photoURL } = data;
+    console.log(name, photoURL);
       createUser(data.email, data.password)
         .then(result => {
           const loggedUser = result.user;
-          console.log(loggedUser);
-      })
+          toast.success("Signup Successfully");
+          collectUsers(result.user)
+          reset();
+          navigate("/login");
+
+          // phoot and name
+          updateUser(name, photoURL)
+            .then(() => {})
+            .catch((error) => console.log("an error occuered", error));
+        
+        })
       
-    };
+  };
+
+
+
   return (
     <>
       <Helmet>
@@ -39,7 +56,7 @@ const Signup = () => {
         <div className="">
           <Lottie className="" animationData={signupAnimation} loop={true} />;
         </div>
-        <div className="">
+        <div className="order-first md:order-last">
           <div className="card mx-auto flex-shrink-0  max-w-sm shadow-2xl bg-base-100">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">

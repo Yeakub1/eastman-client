@@ -93,9 +93,14 @@ const Navbar = () => {
             {user?.email ? (
               <>
                 <li>
-                    <button onClick={handleLogOut}>Log out</button>
+                  <ActiveLink className="mr-3" to="/dashbord">
+                    Dashbord
+                  </ActiveLink>
                 </li>
-                <ActiveLink
+                <li>
+                  <button onClick={handleLogOut}>Log out</button>
+                </li>
+                <Link
                   to="/user-profile"
                   className="hover-text h-10 w-10 ml-4 cursor-pointer"
                 >
@@ -106,7 +111,7 @@ const Navbar = () => {
                   <span className="tooltip-text" id="left">
                     {user?.displayName}
                   </span>
-                </ActiveLink>
+                </Link>
               </>
             ) : (
               <ActiveLink to="/login">LogIn</ActiveLink>

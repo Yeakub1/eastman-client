@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import Spinner from "../../utility/Spinner/Spinner";
 
 const PrivateRoutes = ({ children }) => {
   const { user, loding } = useContext(AuthContext);
   const location = useLocation();
   if (loding) {
-    return <progress className="progress w-56"></progress>;
+    return <Spinner></Spinner>
   }
   if (user) {
     return children;
