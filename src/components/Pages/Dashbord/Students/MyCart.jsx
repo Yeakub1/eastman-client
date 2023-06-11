@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
+const imgae_hosting = import.meta.env.VITE_DB_IMAGE;
 const ContactFrom = () => {
   const {
     register,
@@ -9,10 +11,52 @@ const ContactFrom = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-    const {user}= useContext(AuthContext)
-    
-  const onSubmit = (data) => console.log(data);
+  const { user } = useContext(AuthContext);
+  const image_hostin_url = `https://api.imgbb.com/1/upload?key=${imgae_hosting}`;
+  
+  const onSubmit = (data) => {
+    const imgdata = new FormData();
+    imgdata.append('image', data.image[0]);
+    fetch(image_hostin_url, {
+      method: 'POST',
+      body: imgdata
+    })
+      .then(res => res.json())
+      .then(uploadImage => {
+      if (uploadImage.success) {
+        const imgUrl = uploadImage.data.display_url;
+        const { name, email, seats, price } = data;
+        const myclass = {
+          name,
+          price: parseFloat(price),
+          seats: parseFloat(seats),
+          email,
+          image: imgUrl,
+        };
+        console.log(myclass);
+        fetch("http://localhost:5000/class", {
+          method: 'POST',
+          headers: {
+          'content-type': 'application/json'
+          },
+          body: JSON.stringify(myclass)
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Class add successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+      }
+    })
+  };
 
   return (
     <div className="lg:px-20">
