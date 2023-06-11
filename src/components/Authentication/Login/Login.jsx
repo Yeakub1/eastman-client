@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
-import { collectUsers } from "../../Hooks/User";
+// import { collectUsers } from "../../Hooks/User";
 
 const Login = () => {
   const {
@@ -49,9 +49,22 @@ const Login = () => {
    const handleGoogleSignIn = () => {
      googleSignIn()
        .then((result) => {
-         console.log(result.user);
+         const loginUser = result.user;
+         console.log(loginUser);
          toast.success("Login Successfully");
-         collectUsers(result.user);
+           const saveUser = {
+             name: loginUser.displayName,
+             email: loginUser.email,
+           };
+         fetch("http://localhost:5000/users", {
+           method: "POST",
+           headers: {
+             "content-type": "application/json",
+           },
+           body: JSON.stringify(saveUser),
+         })
+           .then((res) => res.json())
+           .then((data) => console.log(data));
          navigate(froms, { replace: true });
        })
        .catch((error) => {

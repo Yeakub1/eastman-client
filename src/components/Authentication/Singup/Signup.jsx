@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-hot-toast";
-import { collectUsers } from "../../Hooks/User";
+// import { collectUsers } from "../../Hooks/User";
 
 const Signup = () => {
   const {
@@ -32,7 +32,16 @@ const Signup = () => {
         .then(result => {
           const loggedUser = result.user;
           toast.success("Signup Successfully");
-          collectUsers(result.user)
+          const saveUser = { name: data.name, email: data.email };
+          fetch("http://localhost:5000/users", {
+            method: 'POST',
+            headers: {
+            'content-type': 'application/json'
+            },
+            body: JSON.stringify(saveUser)
+          })
+            .then(res => res.json())
+          .then(data=>console.log(data))
           reset();
           navigate("/login");
 
