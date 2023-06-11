@@ -4,7 +4,7 @@ import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const imgae_hosting = import.meta.env.VITE_DB_IMAGE;
-const ContactFrom = () => {
+const ClassFrom = () => {
   const {
     register,
     reset,
@@ -13,49 +13,50 @@ const ContactFrom = () => {
   } = useForm();
   const { user } = useContext(AuthContext);
   const image_hostin_url = `https://api.imgbb.com/1/upload?key=${imgae_hosting}`;
-  
+
   const onSubmit = (data) => {
     const imgdata = new FormData();
-    imgdata.append('image', data.image[0]);
+    imgdata.append("image", data.image[0]);
     fetch(image_hostin_url, {
-      method: 'POST',
-      body: imgdata
+      method: "POST",
+      body: imgdata,
     })
-      .then(res => res.json())
-      .then(uploadImage => {
-      if (uploadImage.success) {
-        const imgUrl = uploadImage.data.display_url;
-        const { name, email, seats, price } = data;
-        const myclass = {
-          name,
-          price: parseFloat(price),
-          seats: parseFloat(seats),
-          email,
-          image: imgUrl,
-        };
-        console.log(myclass);
-        fetch("http://localhost:5000/class", {
-          method: 'POST',
-          headers: {
-          'content-type': 'application/json'
-          },
-          body: JSON.stringify(myclass)
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.insertedId) {
-              reset();
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Class add successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-          });
-      }
-    })
+      .then((res) => res.json())
+      .then((uploadImage) => {
+        if (uploadImage.success) {
+          const imgUrl = uploadImage.data.display_url;
+          const { name, email, seats, price, classNames } = data;
+          const myclass = {
+            name,
+            price: parseFloat(price),
+            seats: parseFloat(seats),
+            email,
+            classNames,
+            image: imgUrl,
+          };
+          console.log(myclass);
+          fetch("http://localhost:5000/class", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(myclass),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Class add successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            });
+        }
+      });
   };
 
   return (
@@ -83,6 +84,39 @@ const ContactFrom = () => {
           </div>
           <div className="form-control">
             <label className="label">
+              <span className="label-text">Instructor email</span>
+            </label>
+
+            <input
+              type="email"
+              {...register("email", { required: true })}
+              placeholder="email"
+              className="input input-bordered"
+              defaultValue={user?.email}
+            />
+            {errors.email && (
+              <span className="text-red-800">Instructor email is required</span>
+            )}
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-2 gap-10">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Class name</span>
+            </label>
+
+            <input
+              type="text"
+              {...register("classNames", { required: true })}
+              placeholder="Class Name"
+              className="input input-bordered"
+            />
+            {errors.name && (
+              <span className="text-red-800">Class Name is required</span>
+            )}
+          </div>
+          <div className="form-control">
+            <label className="label">
               <span className="label-text">Class Image</span>
             </label>
 
@@ -95,23 +129,6 @@ const ContactFrom = () => {
               <span className="text-red-800">Class Image is required</span>
             )}
           </div>
-        </div>
-
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Instructor email</span>
-          </label>
-
-          <input
-            type="email"
-            {...register("email", { required: true })}
-            placeholder="email"
-            className="input input-bordered"
-            defaultValue={user?.email}
-          />
-          {errors.email && (
-            <span className="text-red-800">Instructor email is required</span>
-          )}
         </div>
         <div className="grid lg:grid-cols-2 gap-10">
           <div className="form-control">
@@ -153,4 +170,4 @@ const ContactFrom = () => {
   );
 };
 
-export default ContactFrom;
+export default ClassFrom;

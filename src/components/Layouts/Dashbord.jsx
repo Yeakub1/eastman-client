@@ -1,10 +1,11 @@
 import { NavLink, Outlet } from "react-router-dom";
 import {
   FaHome,
-  FaAlignLeft,
   FaShoppingCart,
   FaBook,
   FaUserFriends,
+  FaBookReader,
+  FaBookOpen,
 } from "react-icons/fa";
 
 const Dashboard = () => {
@@ -38,13 +39,13 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/menu">
-                  <FaAlignLeft /> Manage Users
+                <NavLink to="/dashbord/myclass">
+                  <FaBookOpen /> My Class
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashbord/mycart">
-                  <FaShoppingCart /> Enrolled Students
+                <NavLink to="/dashbord/addclass">
+                  <FaBookReader /> Add a Class
                 </NavLink>
               </li>
             </>

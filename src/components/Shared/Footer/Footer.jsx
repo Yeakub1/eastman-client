@@ -33,16 +33,16 @@ const Footer = () => {
             {" "}
             <span className="footer-title">Services</span>
             <a href="" className="text-lg ">
-              Branding
+              Home
             </a>
             <a href="" className="text-lg ">
-              Design
+              Instructors
             </a>
             <a href="" className="text-lg ">
-              Marketing
+              Classes
             </a>
             <a href="" className="text-lg ">
-              Advertisement
+              Login
             </a>
           </div>
 

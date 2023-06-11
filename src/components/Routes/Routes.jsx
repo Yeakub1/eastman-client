@@ -5,8 +5,10 @@ import Signup from "../Authentication/Singup/Signup";
 import SignUpForm from "../Authentication/Login/Login";
 import Instructors from "../Pages/Instructors/Instructors";
 import PrivateRoutes from "./PrivateRoutes";
-import MyCart from "../Pages/Dashbord/Students/MyCart";
 import Dashboard from "../Layouts/Dashbord";
+import Classes from "../Pages/Classes/Classes";
+import ClassFrom from "../Pages/Dashbord/Instructors/ClassFrom";
+import MyClass from "../Pages/Dashbord/Instructors/MyClass";
 
 
 const router = createBrowserRouter([
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/Classes",
+        element: <Classes></Classes>
+      },
+      {
         path: "/signup",
         element: <Signup></Signup>,
       },
@@ -38,17 +44,19 @@ const router = createBrowserRouter([
   },
 
   {
-    path: 'dashbord',
+    path: "dashbord",
     element: <Dashboard></Dashboard>,
     children: [
       {
-        path: 'mycart',
-        element: <MyCart></MyCart>
-      }
-    ]
-    
-  }
-
+        path: "addclass",
+        element: <ClassFrom></ClassFrom>
+      },
+      {
+        path: "myclass",
+        element: <MyClass></MyClass>
+      },
+    ],
+  },
 ]);
 
 export default router;
