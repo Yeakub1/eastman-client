@@ -4,6 +4,7 @@
 
 body{
     font-family: 'Poppins', sans-serif;
+    
 }
 .banner-bg{
   background-position: center;
@@ -38,10 +39,3 @@ body{
     position: relative;
   }
 
-
-/* .drawer-side a.active {
-  color: white;
-} */
-/* .drawer-side a {
-  background-color: transparent;
-} */

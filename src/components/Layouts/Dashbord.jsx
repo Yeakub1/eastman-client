@@ -5,13 +5,14 @@ import {
   FaBook,
   FaUserFriends,
   FaBookReader,
-  FaBookOpen,
 } from "react-icons/fa";
+import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
 
   // TODO
   // const isAdmin = true;
+  const [isAdmin]=useAdmin()
   const isInstructor = true;
 
 
@@ -31,7 +32,47 @@ const Dashboard = () => {
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 h-full text-xl bg-base-200">
-          {isInstructor ? (
+          {isAdmin ? (
+            <>
+              {" "}
+              <li>
+                <NavLink to="/">
+                  <FaHome /> Admin Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashbord/allclass">
+                  <FaBookReader /> Manage Classes
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashbord/allusers">
+                  <FaUserFriends /> Manage Users
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <NavLink to="dashord/home">
+                  <FaHome /> User Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashbord/mycart">
+                  <FaShoppingCart /> My Cart
+                </NavLink>
+              </li>
+              <li>
+                <NavLink>payment history</NavLink>
+              </li>
+              <li>
+                <NavLink>my booking</NavLink>
+              </li>
+            </>
+          )}
+
+          {/* {isInstructor ? (
             <>
               <li>
                 <NavLink to="/">
@@ -69,7 +110,7 @@ const Dashboard = () => {
                 <NavLink>my booking</NavLink>
               </li>
             </>
-          )}
+          )} */}
 
           <div className="divider"></div>
           <li>

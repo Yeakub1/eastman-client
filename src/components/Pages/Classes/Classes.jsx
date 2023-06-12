@@ -13,7 +13,7 @@ const Classes = () => {
     return (
       <div className="max-w-7xl mx-auto">
         <h1 className="text-center text-3xl m-5 font-bold">Recent Posts Class</h1>
-        <div className="grid  lg:grid-cols-3 ">
+        <div className="grid justify-center lg:grid-cols-3 ">
           {calss.map((item) => (
             <ClassItem key={item._id} item={item}></ClassItem>
           ))}
