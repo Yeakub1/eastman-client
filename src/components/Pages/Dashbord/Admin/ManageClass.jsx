@@ -1,38 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { FaTrash, FaUserAlt } from "react-icons/fa";
+import { FaUserAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 const token = localStorage.getItem("access-token");
 
 const ManageClass = () => {
-  const handleDeleteItems = (item) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`http://localhost:5000/user/${item._id}`, {
-          method: "DELETE",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount > 0) {
-              refetch();
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            }
-          });
-      }
-    });
-  };
 
   const handleMakeAdmin = (item) => {
     fetch(`http://localhost:5000/user/admin/${item._id}`, {
@@ -74,28 +46,32 @@ const ManageClass = () => {
         </h2>
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
-            {/* head */}
             <thead>
               <tr>
-                <th>#</th>
-                <th>NAME</th>
-                <th>EMAIL</th>
+                <th>Image</th>
+                <th>Class Name</th>
+                <th>Instructor name</th>
+                <th>Instructor email</th>
+                <th>Available seats</th>
+                <th>Price</th>
                 <th>ROLE</th>
-                <th>ACTION</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((item, index) => (
+              {users.map((item) => (
                 <tr key={item._id}>
-                  <td>{index + 1}</td>
                   <td>
-                    <div className="flex items-center space-x-3">
-                      <div className="avatar">
-                        <td>{item.name}</td>
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img src={item.image} alt="class imges" />
                       </div>
                     </div>
                   </td>
                   <td>{item.classNames}</td>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                  <td>{item.seats}</td>
+                  <td>{item.price}</td>
                   <td>
                     {item.role === "admin" ? (
                       "admin"
@@ -108,11 +84,15 @@ const ManageClass = () => {
                       </button>
                     )}
                   </td>
-                  <td
-                    onClick={() => handleDeleteItems(item)}
-                    className="text-orange-600  "
-                  >
-                    <FaTrash />
+                  <td>
+                    <select className="select select-success ">
+                      <option disabled selected>
+                        Status
+                      </option>
+                      <option>pending </option>
+                      <option>approved</option>
+                      <option>denied</option>
+                    </select>
                   </td>
                 </tr>
               ))}

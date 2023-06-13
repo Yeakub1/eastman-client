@@ -3,7 +3,7 @@ import ClassItem from './ClassItem';
 
 const Classes = () => {
 
-    const [calss, setClass] = useState([]);
+    const [allcalss, setClass] = useState([]);
     useEffect(() => {
         fetch("http://localhost:5000/class")
             .then(res => res.json())
@@ -14,7 +14,7 @@ const Classes = () => {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-center text-3xl m-5 font-bold">Recent Posts Class</h1>
         <div className="grid justify-center lg:grid-cols-3 ">
-          {calss.map((item) => (
+          {allcalss.map((item) => (
             <ClassItem key={item._id} item={item}></ClassItem>
           ))}
         </div>
