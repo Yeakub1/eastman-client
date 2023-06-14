@@ -12,7 +12,9 @@ import MyClass from "../Pages/Dashbord/Instructors/MyClass";
 import AllUsers from "../Pages/Dashbord/Admin/AllUsers";
 import ManageClass from "../Pages/Dashbord/Admin/ManageClass";
 import ErrorPage from "../Shared/ErrorPage";
-
+import Mycart from "../Pages/Dashbord/Students/Mycart";
+import Payment from "../Pages/Dashbord/Students/Payment";
+import Booking from "../Pages/Dashbord/Students/Booking";
 
 const router = createBrowserRouter([
   {
@@ -26,13 +28,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/Instructors",
-        element: (
-            <Instructors></Instructors>
-        ),
+        element: <Instructors></Instructors>,
       },
       {
         path: "/Classes",
-        element: <Classes></Classes>
+        element: <Classes></Classes>,
       },
       {
         path: "/signup",
@@ -47,23 +47,40 @@ const router = createBrowserRouter([
 
   {
     path: "dashbord",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoutes>
+        {" "}
+        <Dashboard></Dashboard>
+      </PrivateRoutes>
+    ),
     children: [
       {
         path: "addclass",
-        element: <ClassFrom></ClassFrom>
+        element: <ClassFrom></ClassFrom>,
       },
       {
         path: "myclass",
-        element: <MyClass></MyClass>
+        element: <MyClass></MyClass>,
       },
       {
         path: "allusers",
-        element: <AllUsers></AllUsers>
+        element: <AllUsers></AllUsers>,
       },
       {
         path: "allclass",
-        element: <ManageClass></ManageClass>
+        element: <ManageClass></ManageClass>,
+      },
+      {
+        path: "mycart",
+        element: <Mycart></Mycart>,
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "booking",
+        element: <Booking></Booking>,
       },
     ],
   },

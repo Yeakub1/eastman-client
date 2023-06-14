@@ -93,7 +93,7 @@ const Navbar = () => {
             {user?.email ? (
               <>
                 <li>
-                  <ActiveLink className="mr-3" to="/dashbord/addclass">
+                  <ActiveLink className="mr-3" to="/dashbord/">
                     Dashbord
                   </ActiveLink>
                 </li>
