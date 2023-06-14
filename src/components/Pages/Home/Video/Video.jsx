@@ -1,6 +1,5 @@
 import React from 'react';
 import video from "../../../../assets/images/banner/Music Video.mp4";
-
 const Video = () => {
     return (
       <div className="max-w-7xl mx-auto mt-20 min-h-scree">
