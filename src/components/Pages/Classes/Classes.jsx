@@ -19,7 +19,7 @@ const Classes = () => {
         <h1 className="text-center text-3xl m-5 font-bold">
           Recent Posts Class
         </h1>
-        <div className="grid justify-center lg:grid-cols-3 ">
+        <div className="grid justify-center lg:grid-cols-3 gap-5">
           {allcalss.map((item) => (
             <ClassItem
               key={item._id}

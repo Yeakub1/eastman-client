@@ -1,33 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaUserAlt } from "react-icons/fa";
-import Swal from "sweetalert2";
 const token = localStorage.getItem("access-token");
 
 const ManageClass = () => {
 
-  const handleMakeAdmin = (item) => {
-    fetch(`http://localhost:5000/user/admin/${item._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.modifiedCount) {
-          refetch();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `${item.name} in an Admin Now`,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      });
-  };
 
   const { data: users = [], refetch } = useQuery(["users"], async () => {
     const res = await fetch("http://localhost:5000/class", {
@@ -72,18 +49,6 @@ const ManageClass = () => {
                   <td>{item.email}</td>
                   <td>{item.seats}</td>
                   <td>{item.price}</td>
-                  <td>
-                    {item.role === "admin" ? (
-                      "admin"
-                    ) : (
-                      <button
-                        onClick={() => handleMakeAdmin(item)}
-                        className="btn btn-ghost bg-orange-600  text-white"
-                      >
-                        <FaUserAlt />
-                      </button>
-                    )}
-                  </td>
                   <td>
                     <select className="select select-success ">
                       <option disabled selected>

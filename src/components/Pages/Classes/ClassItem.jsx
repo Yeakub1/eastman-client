@@ -1,25 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import CheckoutForm from '../../../utility/PaymentFrom/CheckoutForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { AuthContext } from '../../Provider/AuthProvider';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
 const stripePromise = loadStripe(import.meta.env.VITE_Publishable_KEY);
 
 const ClassItem = ({ item, handleMolda }) => {
   const { _id, name, price, email, image, seats, classNames } = item;
-  const { user } = useContext(AuthContext);
-  const [axiosSecure] = useAxiosSecure();
-    const [clientSecret, setClientSecret] = useState("");
-
-  // useEffect(() => {
-  //   axiosSecure.post("/create-payment-intent", { price })
-  //     .then(res => {
-  //       console.log(res.data.clientSecret);
-  //       setClientSecret(res.data.clientSecret)
-  //   })
-  // }, [price, axiosSecure]);
-
+  
   return (
     <div>
       <div className="card w-96 bg-base-100 shadow-xl">
