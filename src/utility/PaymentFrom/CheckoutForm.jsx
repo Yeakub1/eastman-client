@@ -7,19 +7,10 @@ const CheckoutForm = () => {
   const elements = useElements();
   const [cardError, setCardError] = useState('');
   const { user } = useContext(AuthContext);
-  const [clientSecret, setClientSecret] = useState('');
 
-    // useEffect(() => {
-    //   if (bookingInfo.price > 0) {
-    //     axiosSecure
-    //       .post("/create-payment-intent", { price: bookingInfo.price })
-    //       .then((res) => {
-    //         console.log(res.data.clientSecret);
-    //         setClientSecret(res.data.clientSecret);
-    //       });
-    //   }
-    // }, [bookingInfo, axiosSecure]);
 
+
+   
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -41,20 +32,21 @@ const CheckoutForm = () => {
       console.log("[error]", error);
       setCardError(error.message);
     } else {
+      setCardError('')
       console.log("[PaymentMethod]", paymentMethod);
     }
 
-    // payment
-    const { paymentIntent, error: confirmError } =
-      await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: card,
-          billing_details: {
-            email: user?.email || "unknown",
-            name: user?.displayName || "anonymous",
-          },
-        },
-      });
+    // // payment
+    // const { paymentIntent, error: confirmError } =
+    //   await stripe.confirmCardPayment(clientSecret, {
+    //     payment_method: {
+    //       card: card,
+    //       billing_details: {
+    //         email: user?.email || "unknown",
+    //         name: user?.displayName || "anonymous",
+    //       },
+    //     },
+    //   });
   };
 
 
