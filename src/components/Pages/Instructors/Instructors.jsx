@@ -5,9 +5,9 @@ import DetailsInst from './DetailsInst';
 const Instructors = () => {
   const [inst, setInst] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/instructor")
-      .then(res => res.json())
-      .then(data => setInst(data));
+    fetch("https://eastman-server.vercel.app/instructor")
+      .then((res) => res.json())
+      .then((data) => setInst(data));
   },[])
   return (
     <div className="max-w-7xl mx-auto">
