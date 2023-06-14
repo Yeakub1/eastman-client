@@ -7,7 +7,7 @@ const ManageClass = () => {
 
 
   const { data: users = [], refetch } = useQuery(["users"], async () => {
-    const res = await fetch("http://localhost:5000/class", {
+    const res = await fetch("https://eastman-server.vercel.app/class", {
       headers: {
         authorization: `beraer ${token}`,
       },

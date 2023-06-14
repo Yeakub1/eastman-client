@@ -35,7 +35,7 @@ const ClassFrom = () => {
             image: imgUrl,
           };
           console.log(myclass);
-          fetch("http://localhost:5000/class", {
+          fetch("https://eastman-server.vercel.app/class", {
             method: "POST",
             headers: {
               "content-type": "application/json",

@@ -5,9 +5,9 @@ const Classes = () => {
 
     const [allcalss, setClass] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/class")
-            .then(res => res.json())
-            .then(data => setClass(data));
+        fetch("https://eastman-server.vercel.app/class")
+          .then((res) => res.json())
+          .then((data) => setClass(data));
     }, []);
   
   const handleMolda = (id) => {

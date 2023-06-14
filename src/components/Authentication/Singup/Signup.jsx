@@ -33,15 +33,15 @@ const Signup = () => {
           const loggedUser = result.user;
           toast.success("Signup Successfully");
           const saveUser = { name: data.name, email: data.email };
-          fetch("http://localhost:5000/users", {
-            method: 'POST',
+          fetch("https://eastman-server.vercel.app/users", {
+            method: "POST",
             headers: {
-            'content-type': 'application/json'
+              "content-type": "application/json",
             },
-            body: JSON.stringify(saveUser)
+            body: JSON.stringify(saveUser),
           })
-            .then(res => res.json())
-          .then(data=>console.log(data))
+            .then((res) => res.json())
+            .then((data) => console.log(data));
           reset();
           navigate("/login");
 

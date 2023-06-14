@@ -9,7 +9,7 @@ const AllUsers = () => {
  
 
   const handleMakeAdmin = (item) => {
-    fetch(`http://localhost:5000/users/admin/${item._id}`, {
+    fetch(`https://eastman-server.vercel.app/users/admin/${item._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -32,7 +32,7 @@ const AllUsers = () => {
   };
 
   const handleMakeInstructor = (item) => {
-    fetch(`http://localhost:5000/users/instructor/${item._id}`, {
+    fetch(`https://eastman-server.vercel.app/users/instructor/${item._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -55,7 +55,7 @@ const AllUsers = () => {
   };
 
   const { data: users = [], refetch } = useQuery(["users"], async () => {
-    const res = await fetch("http://localhost:5000/users", {
+    const res = await fetch("https://eastman-server.vercel.app/users", {
       headers: {
         authorization: `beraer ${token}`,
       },

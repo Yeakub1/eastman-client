@@ -10,10 +10,10 @@ const MyClass = () => {
   const [, refetch] = useSecure();
 
  useEffect(() => {
-   fetch(`http://localhost:5000/class/${user?.email}`)
+   fetch(`https://eastman-server.vercel.app/class/${user?.email}`)
      .then((res) => res.json())
      .then((data) => {
-       setMyClass(data)
+       setMyClass(data);
      });
  }, [user]);
   
@@ -29,7 +29,7 @@ const MyClass = () => {
        confirmButtonText: "Yes, delete it!",
      }).then((result) => {
        if (result.isConfirmed) {
-         fetch(`http://localhost:5000/class/${item._id}`, {
+         fetch(`https://eastman-server.vercel.app/class/${item._id}`, {
            method: "DELETE",
            headers: {
              "content-type": "application/json",

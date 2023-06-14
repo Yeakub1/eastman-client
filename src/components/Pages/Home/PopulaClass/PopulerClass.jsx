@@ -4,7 +4,7 @@ import ClassItems from "./ClassItems";
 const PopulerClass = () => {
   const [allcalss, setClass] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/class")
+    fetch("https://eastman-server.vercel.app/class")
       .then((res) => res.json())
       .then((data) => setClass(data));
   }, []);
