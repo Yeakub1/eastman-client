@@ -3,6 +3,7 @@ import Banner from '../Banner/Banner';
 import Video from '../Video/Video';
 import { Helmet } from "react-helmet-async";
 import PopulerClass from '../PopulaClass/PopulerClass';
+import Instructors from '../../Instructors/Instructors';
 // import DarkMode from '../../../../utility/DarkMode/DarkMode';
 
 const Home = () => {
@@ -13,8 +14,9 @@ const Home = () => {
         </Helmet>
         {/* <DarkMode></DarkMode> */}
         <Banner></Banner>
-        <Video></Video>
         <PopulerClass></PopulerClass>
+        <Video></Video>
+        <Instructors></Instructors>
       </div>
     );
 };
