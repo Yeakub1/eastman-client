@@ -15,7 +15,7 @@ const Instructors = () => {
         <title>Esatman School | Instructors</title>
       </Helmet>
       <h1 className="text-center text-3xl m-5 font-bold">Instructors</h1>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid justify-center lg:grid-cols-3 gap-5">
         {inst.map((instructor) => (
           <DetailsInst
             key={instructor._id}
